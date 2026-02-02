@@ -208,131 +208,134 @@ export default function Home() {
       </div>
 
       {/* Preview */}
-      <div className="w-full md:w-2/3 flex items-center justify-center bg-black/50 p-8 rounded-xl border border-gray-700 overflow-hidden relative">
-        <p className="absolute top-4 left-4 text-gray-500 text-sm">Preview</p>
+      <div className="w-full md:w-2/3 flex items-center justify-center bg-black/50 p-2 md:p-8 rounded-xl border border-gray-700 overflow-hidden relative min-h-[500px] md:min-h-0">
+        <p className="absolute top-4 left-4 text-gray-500 text-sm z-50">Preview</p>
 
-        {/* Card Container */}
-        <div
-          ref={cardRef}
-          className="relative w-[405px] h-[720px] bg-black overflow-hidden flex flex-col items-center shadow-2xl"
-          style={{ fontFamily: 'sans-serif' }}
-        >
-          {/* Background Image (Blurred/Darkened) */}
-          <div className="absolute inset-0 z-0">
-            {bgImage ? (
-              <>
-                <img
-                  src={bgImage}
-                  alt="Background"
-                  className="w-full h-full object-cover opacity-60"
-                />
-                <div className="absolute inset-0 bg-black/40 backdrop-blur-sm"></div>
-                <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/30"></div>
-              </>
-            ) : (
-              <div className="w-full h-full bg-gray-900 flex items-center justify-center">
-                <ImageIcon size={48} className="text-gray-700" />
-              </div>
-            )}
-          </div>
-
-          {/* Main Content */}
-          <div className="relative z-10 w-full h-full flex flex-col items-center pt-24 pb-12 px-6">
-
-            {/* Poster Card */}
-            <div className="relative mb-8 mt-8">
-              {/* Comment Bubble (if exists) */}
-              {comment && (
-                <div className="absolute -top-20 left-1/2 transform -translate-x-1/2 bg-white text-black text-xs font-medium px-3 py-2 rounded-lg shadow-lg whitespace-nowrap z-30 max-w-[200px] text-center">
-                  {comment}
-                  <div className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-2 h-2 bg-white rotate-45"></div>
+        {/* Wrapper Responsivo com Escala */}
+        <div className="transform scale-[0.65] xs:scale-[0.75] sm:scale-[0.85] md:scale-100 transition-transform duration-300 origin-center">
+          {/* Card Container */}
+          <div
+            ref={cardRef}
+            className="relative w-[405px] h-[720px] bg-black overflow-hidden flex flex-col items-center shadow-2xl flex-shrink-0"
+            style={{ fontFamily: 'sans-serif' }}
+          >
+            {/* Background Image (Blurred/Darkened) */}
+            <div className="absolute inset-0 z-0">
+              {bgImage ? (
+                <>
+                  <img
+                    src={bgImage}
+                    alt="Background"
+                    className="w-full h-full object-cover opacity-60"
+                  />
+                  <div className="absolute inset-0 bg-black/40 backdrop-blur-sm"></div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/30"></div>
+                </>
+              ) : (
+                <div className="w-full h-full bg-gray-900 flex items-center justify-center">
+                  <ImageIcon size={48} className="text-gray-700" />
                 </div>
               )}
+            </div>
 
-              {/* Profile Image (Top Center of Poster) */}
-              <div className="absolute -top-6 left-1/2 transform -translate-x-1/2 z-20">
-                <div className="w-12 h-12 rounded-full border-2 border-white/20 overflow-hidden shadow-lg bg-gray-800">
-                  {profileImage ? (
-                    <img src={profileImage} alt="Profile" className="w-full h-full object-cover" />
+            {/* Main Content */}
+            <div className="relative z-10 w-full h-full flex flex-col items-center pt-24 pb-12 px-6">
+
+              {/* Poster Card */}
+              <div className="relative mb-8 mt-8">
+                {/* Comment Bubble (if exists) */}
+                {comment && (
+                  <div className="absolute -top-20 left-1/2 transform -translate-x-1/2 bg-white text-black text-xs font-medium px-3 py-2 rounded-lg shadow-lg whitespace-nowrap z-30 max-w-[200px] text-center">
+                    {comment}
+                    <div className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-2 h-2 bg-white rotate-45"></div>
+                  </div>
+                )}
+
+                {/* Profile Image (Top Center of Poster) */}
+                <div className="absolute -top-6 left-1/2 transform -translate-x-1/2 z-20">
+                  <div className="w-12 h-12 rounded-full border-2 border-white/20 overflow-hidden shadow-lg bg-gray-800">
+                    {profileImage ? (
+                      <img src={profileImage} alt="Profile" className="w-full h-full object-cover" />
+                    ) : (
+                      <div className="w-full h-full flex items-center justify-center text-gray-500">
+                        <User size={20} />
+                      </div>
+                    )}
+                  </div>
+                </div>
+
+                {/* Poster Image */}
+                <div className="w-56 h-84 rounded-2xl overflow-hidden shadow-[0_0_20px_rgba(0,0,0,0.5)] border border-white/10 bg-gray-800">
+                  {bgImage ? (
+                    <img src={bgImage} alt="Poster" className="w-full h-full object-cover" />
                   ) : (
-                    <div className="w-full h-full flex items-center justify-center text-gray-500">
-                      <User size={20} />
+                    <div className="w-full h-full flex items-center justify-center text-gray-600">
+                      Poster
                     </div>
                   )}
                 </div>
               </div>
 
-              {/* Poster Image */}
-              <div className="w-56 h-84 rounded-2xl overflow-hidden shadow-[0_0_20px_rgba(0,0,0,0.5)] border border-white/10 bg-gray-800">
-                {bgImage ? (
-                  <img src={bgImage} alt="Poster" className="w-full h-full object-cover" />
-                ) : (
-                  <div className="w-full h-full flex items-center justify-center text-gray-600">
-                    Poster
-                  </div>
-                )}
-              </div>
-            </div>
-
-            {/* Title */}
-            {/* <h2 className="text-medium font-light tracking-wider text-white mb-4 text-center drop-shadow-md">
+              {/* Title */}
+              {/* <h2 className="text-medium font-light tracking-wider text-white mb-4 text-center drop-shadow-md">
               {title}
             </h2> */}
-            {/* Subtitle/Text */}
-            <p className="text-gray-400 text-medium mb-4 font-light opacity-80">{title}</p>
+              {/* Subtitle/Text */}
+              <p className="text-gray-400 text-medium mb-4 font-light opacity-80">{title}</p>
 
-            {/* Rating Stars */}
-            <div className="flex gap-2 mb-4">
-              {[1, 2, 3, 4, 5].map((star) => {
-                if (rating >= star) {
-                  return (
-                    <Star
-                      key={star}
-                      size={24}
-                      className="fill-pink-500 text-pink-500 drop-shadow-md"
-                    />
-                  );
-                } else if (rating >= star - 0.5) {
-                  return (
-                    <div key={star} className="relative">
+              {/* Rating Stars */}
+              <div className="flex gap-2 mb-4">
+                {[1, 2, 3, 4, 5].map((star) => {
+                  if (rating >= star) {
+                    return (
                       <Star
+                        key={star}
+                        size={24}
+                        className="fill-pink-500 text-pink-500 drop-shadow-md"
+                      />
+                    );
+                  } else if (rating >= star - 0.5) {
+                    return (
+                      <div key={star} className="relative">
+                        <Star
+                          size={24}
+                          className="text-gray-600 drop-shadow-md"
+                        />
+                        <div className="absolute inset-0 overflow-hidden w-1/2">
+                          <Star
+                            size={24}
+                            className="fill-pink-500 text-pink-500 drop-shadow-md"
+                          />
+                        </div>
+                      </div>
+                    );
+                  } else {
+                    return (
+                      <Star
+                        key={star}
                         size={24}
                         className="text-gray-600 drop-shadow-md"
                       />
-                      <div className="absolute inset-0 overflow-hidden w-1/2">
-                        <Star
-                          size={24}
-                          className="fill-pink-500 text-pink-500 drop-shadow-md"
-                        />
-                      </div>
-                    </div>
-                  );
-                } else {
-                  return (
-                    <Star
-                      key={star}
-                      size={24}
-                      className="text-gray-600 drop-shadow-md"
-                    />
-                  );
-                }
-              })}
-            </div>
+                    );
+                  }
+                })}
+              </div>
 
-            {/* Logo / Footer */}
-            <div className="flex flex-col items-center gap-1">
-              <span className="text-[10px] uppercase tracking-widest text-gray-500">ON</span>
-              <img
-                src="/img/backloggd-logo.webp"
-                alt="Backloggd"
-                className="w-32 object-contain"
-              />
-            </div>
+              {/* Logo / Footer */}
+              <div className="flex flex-col items-center gap-1">
+                <span className="text-[10px] uppercase tracking-widest text-gray-500">ON</span>
+                <img
+                  src="/img/backloggd-logo.webp"
+                  alt="Backloggd"
+                  className="w-32 object-contain"
+                />
+              </div>
 
-            {/* Large Background Text Overlay */}
-            <div className="absolute bottom-0 left-0 w-full overflow-hidden pointer-events-none opacity-10">
-            </div>
+              {/* Large Background Text Overlay */}
+              <div className="absolute bottom-0 left-0 w-full overflow-hidden pointer-events-none opacity-10">
+              </div>
 
+            </div>
           </div>
         </div>
       </div>
