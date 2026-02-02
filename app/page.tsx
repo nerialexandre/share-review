@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useRef, useCallback } from 'react';
-import { Star, Image as ImageIcon, User, Download, Upload } from 'lucide-react';
+import { Star, Image as ImageIcon, User, Download, Upload, Share2 } from 'lucide-react';
 import { toPng } from 'html-to-image';
 
 export default function Home() {
@@ -32,6 +32,39 @@ export default function Home() {
     } catch (err) {
       console.error('Erro ao gerar imagem:', err);
       alert('Não foi possível gerar a imagem. Tente novamente.');
+    }
+  }, [title]);
+
+  const handleShare = useCallback(async () => {
+    if (cardRef.current === null) {
+      return;
+    }
+
+    try {
+      const blob = await toPng(cardRef.current, {
+        cacheBust: true,
+        pixelRatio: 1.5,
+        backgroundColor: '#000000',
+      }).then((dataUrl) => {
+        return fetch(dataUrl).then((res) => res.blob());
+      });
+
+      const file = new File([blob], `${title.toLowerCase().replace(/\s+/g, '-')}-review.png`, {
+        type: 'image/png',
+      });
+
+      if (navigator.share && navigator.canShare({ files: [file] })) {
+        await navigator.share({
+          files: [file],
+          title: `Avaliação: ${title}`,
+          text: `Minha avaliação de ${title}`,
+        });
+      } else {
+        alert('Seu navegador não suporta compartilhamento direto de imagens. Use o botão de download.');
+      }
+    } catch (err) {
+      console.error('Erro ao compartilhar:', err);
+      alert('Não foi possível compartilhar a imagem.');
     }
   }, [title]);
 
@@ -163,6 +196,14 @@ export default function Home() {
         >
           <Download size={20} />
           <span>Baixar Card</span>
+        </button>
+
+        <button
+          onClick={handleShare}
+          className="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg transition-colors flex items-center justify-center gap-2 shadow-lg"
+        >
+          <Share2 size={20} />
+          <span>Compartilhar</span>
         </button>
       </div>
 
