@@ -66,7 +66,7 @@ export default function Home() {
           />
         </div>
 
-        <div className="space-y-2">
+        {/* <div className="space-y-2">
           <label className="block text-sm font-medium text-gray-300">Comentário (Opcional)</label>
           <input
             type="text"
@@ -75,7 +75,7 @@ export default function Home() {
             className="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
             placeholder="Ex: Me apaixonei..."
           />
-        </div>
+        </div> */}
 
         <div className="space-y-2">
           <label className="block text-sm font-medium text-gray-300">Nota (0.5 - 5)</label>
